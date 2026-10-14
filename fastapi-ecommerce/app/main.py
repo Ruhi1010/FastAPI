@@ -15,3 +15,5 @@ def get_product(id: int):
         raise HTTPException(status_code=404, detail="Product not found")
     return products[id] 
     
+    
+    
