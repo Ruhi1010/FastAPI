@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from service.products import get_all_products
 
 app = FastAPI()
 
@@ -6,14 +7,8 @@ app = FastAPI()
 def root():
     return {"message": "Welcome to the FastAPI E-commerce application!"}
 
-@app.get("/products/{id}")
-def get_product(id: int):
-    products = ['Laptop', 'Smartphone', 'Headphones', 'Camera',
-                'Smartwatch', 'Tablet', 'Gaming Console', 'Printer', 
-                'Monitor', 'Keyboard']
-    if id < 0 or id >= len(products):
-        raise HTTPException(status_code=404, detail="Product not found")
-    return products[id] 
-    
+@app.get("/products")
+def get_product():
+    return get_all_products()
     
     
