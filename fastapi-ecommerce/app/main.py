@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Path
 from service.products import get_all_products
 
 app = FastAPI()
@@ -68,3 +68,16 @@ def list_products(
         "limit": limit,
         "items": products
     }
+    
+    
+@app.get("/products/{product_id}")
+def get_product_by_id(product_id: str = Path(..., 
+                                             min_length=36, 
+                                             description="UUID of the products",
+                                             example="0005a4ea-ce3f-4dd7-bee0-f4ccc70fea6a")):
+    products = get_all_products()
+    for product in products:
+        if product["id"] == product_id:
+            return product
+    
+    raise HTTPException(status_code=404, detail=f"Product with id '{product_id}' not found")
