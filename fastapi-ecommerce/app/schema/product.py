@@ -1,7 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, AnyUrl
 from typing import Annotated, Literal, Optional, List
 from uuid import UUID
-
+from datetime import datetime
 
 
 class Product(BaseModel):
@@ -113,10 +113,15 @@ class Product(BaseModel):
     
     
     image_urls: Annotated[
-            Optional[List[str]],
+            List[AnyUrl],
             Field(
-                default=None,
-                max_length=10,
-                description="Tags associated with the product",
+                max_length=1,
+                description="At least one image URL of the product",
             )
         ]
+    
+    # dimensions_cm
+    # seller
+    
+    created_at: datetime
+
