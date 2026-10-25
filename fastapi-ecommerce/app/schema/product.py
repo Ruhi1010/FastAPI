@@ -125,3 +125,4 @@ class Product(BaseModel):
     
     created_at: datetime
 
+
